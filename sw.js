@@ -1,6 +1,6 @@
 /* Service worker อย่างง่าย : แคชเฉพาะหน้าเปลือกและไอคอน
    ข้อมูลจริงทั้งหมดดึงสดจาก Google Apps Script เสมอ ไม่แคชข้อมูลผู้ใช้ */
-var CACHE = 'fieldwork-shell-v2';
+var CACHE = 'fieldwork-shell-v3';
 var SHELL = ['./', './index.html', './manifest.json',
              './icon-192.png', './icon-512.png', './apple-touch-icon.png'];
 
