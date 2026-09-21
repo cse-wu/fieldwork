@@ -53,8 +53,8 @@
 <body>
 
 <script>
-  /* ลิงก์ระบบ (แบบไม่ผูกโดเมน จะพาไปหน้าล็อกอินได้ถูกต้อง) */
-  var APP_URL = "https://script.google.com/macros/s/AKfycbykLMJi0ZdkcBlo7kRMHWXVLaF53K9nspF-vyIw092OVa_o0j0ceoUDVq3ltHZjDl9v1A/exec";
+  /* ลิงก์ระบบ (ต้องเป็นแบบมีโดเมน /a/macros/mail.wu.ac.th/ เท่านั้น) */
+  var APP_URL = "https://script.google.com/a/macros/mail.wu.ac.th/s/AKfycbzjgYOmSD3EgzMLiJJ7dVjNXTMilKahuy10KlwAwFPbEBqbjBqAteDyEpKcty7kSDveLw/exec";
 </script>
 
 <!-- 1. หน้าต้อนรับ / ติดตั้ง -->
@@ -95,12 +95,11 @@
   <div id="loading"><div class="spin"></div>
     <div style="font-size:14px;opacity:.85">กำลังเปิดระบบ…</div></div>
   <div id="fallback" style="display:none">
-    <p class="sub">ไม่สามารถเปิดระบบในหน้านี้ได้<br>กดปุ่มด้านล่างเพื่อเปิดผ่าน Google โดยตรง</p>
+    <p class="sub">ถ้าระบบยังไม่เปิด กดปุ่มด้านล่าง</p>
     <button class="btn main" onclick="location.href=APP_URL">เปิดระบบ</button>
   </div>
 </div></div>
 
-<iframe id="frame" title="ระบบบันทึกการปฏิบัติงานนอกพื้นที่" allow="camera"></iframe>
 
 <script>
 var ua = navigator.userAgent;
@@ -138,22 +137,14 @@ document.getElementById('b_install').onclick = function(){
   alert('กดจุดสามจุด ⋮ มุมขวาบนของ Chrome แล้วเลือก "ติดตั้งแอป" หรือ "เพิ่มไปยังหน้าจอหลัก"');
 };
 
-/* เปิดระบบในกรอบ ถ้าไม่ขึ้นใน 8 วิ ให้ปุ่มเปิดตรง */
+/* เปิดระบบโดยตรง (ไม่ฝังในกรอบ เพราะเบราว์เซอร์บล็อกการล็อกอิน Google ในกรอบ) */
 function startApp(){
   show('s_load');
-  var frame = document.getElementById('frame'), loaded = false;
-  frame.onload = function(){
-    loaded = true;
-    frame.style.display = 'block';
-    document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('on'); });
-  };
-  frame.src = APP_URL;
+  setTimeout(function(){ location.href = APP_URL; }, 150);
   setTimeout(function(){
-    if(!loaded){
-      document.getElementById('loading').style.display = 'none';
-      document.getElementById('fallback').style.display = 'block';
-    }
-  }, 8000);
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('fallback').style.display = 'block';
+  }, 6000);
 }
 
 /* เปิดจากไอคอนที่ติดตั้งแล้ว หรือบนคอม : เข้าระบบทันที
