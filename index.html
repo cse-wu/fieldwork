@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>บันทึกการปฏิบัติงานนอกพื้นที่ | ศคว. มวล.</title>
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0F8C8C">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="งานนอกพื้นที่">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{ --teal:#0F8C8C; --navy:#12324A; }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;background:#F4F6F5;
+    font-family:'IBM Plex Sans Thai','Noto Sans Thai',sans-serif;color:#1e293b}
+  #frame{position:fixed;inset:0;border:0;width:100%;height:100%;display:none;
+    padding-top:env(safe-area-inset-top,0);padding-bottom:env(safe-area-inset-bottom,0)}
+  .screen{position:fixed;inset:0;display:none;place-items:center;overflow:auto;
+    background:linear-gradient(150deg,var(--teal),var(--navy));color:#fff;text-align:center;
+    padding:calc(28px + env(safe-area-inset-top,0)) 24px calc(28px + env(safe-area-inset-bottom,0))}
+  .screen.on{display:grid}
+  .logo{width:96px;height:96px;border-radius:24px;margin:0 auto 18px;display:block;
+    box-shadow:0 10px 30px #0004}
+  h1{font-size:21px;margin:0 0 6px}
+  .sub{font-size:14px;opacity:.85;margin:0 0 26px;line-height:1.7}
+  .btn{display:block;width:100%;max-width:300px;margin:0 auto 12px;border:0;border-radius:12px;
+    padding:14px 20px;font:inherit;font-size:16px;font-weight:600;cursor:pointer;text-decoration:none}
+  .btn.main{background:#fff;color:var(--navy)}
+  .btn.sub2{background:#ffffff22;color:#fff;border:1px solid #ffffff55}
+  .note{font-size:12.5px;opacity:.75;margin-top:18px;line-height:1.7}
+  .spin{width:26px;height:26px;border:3px solid #ffffff55;border-top-color:#fff;
+    border-radius:50%;animation:s 1s linear infinite;margin:0 auto 14px}
+  @keyframes s{to{transform:rotate(360deg)}}
+
+  /* หน้าสอน iPhone */
+  .guide{background:#fff;color:#1e293b;border-radius:16px;padding:20px;max-width:340px;margin:0 auto;text-align:left}
+  .guide h2{font-size:17px;margin:0 0 14px;color:var(--navy);text-align:center}
+  .step{display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;font-size:14.5px;line-height:1.6}
+  .num{flex:0 0 26px;height:26px;border-radius:50%;background:var(--teal);color:#fff;
+    display:grid;place-items:center;font-size:13px;font-weight:700}
+  .ico{display:inline-block;vertical-align:-4px;width:20px;height:20px}
+  .arrow{position:fixed;left:50%;bottom:calc(10px + env(safe-area-inset-bottom,0));
+    transform:translateX(-50%);font-size:38px;animation:b 1.2s ease-in-out infinite;color:#fff}
+  @keyframes b{50%{transform:translate(-50%,8px)}}
+</style>
+</head>
+<body>
+
+<script>
+  /* ลิงก์ระบบ (แบบไม่ผูกโดเมน จะพาไปหน้าล็อกอินได้ถูกต้อง) */
+  var APP_URL = "https://script.google.com/macros/s/AKfycbykLMJi0ZdkcBlo7kRMHWXVLaF53K9nspF-vyIw092OVa_o0j0ceoUDVq3ltHZjDl9v1A/exec";
+</script>
+
+<!-- 1. หน้าต้อนรับ / ติดตั้ง -->
+<div class="screen" id="s_home"><div>
+  <img class="logo" src="icon-512.png" alt="">
+  <h1>บันทึกการปฏิบัติงานนอกพื้นที่</h1>
+  <p class="sub">ศูนย์เครื่องมือวิทยาศาสตร์และเทคโนโลยี<br>มหาวิทยาลัยวลัยลักษณ์</p>
+  <button class="btn main" id="b_install">📲 ติดตั้งเป็นแอปบนมือถือ</button>
+  <button class="btn sub2" onclick="startApp()">เข้าใช้งานเลย</button>
+  <p class="note">ติดตั้งครั้งเดียว ครั้งต่อไปกดไอคอนบนหน้าจอได้ทันที<br>
+    เข้าสู่ระบบด้วยอีเมล @mail.wu.ac.th</p>
+</div></div>
+
+<!-- 2. หน้าสอนติดตั้งบน iPhone -->
+<div class="screen" id="s_ios"><div>
+  <div class="guide">
+    <h2>ติดตั้งบน iPhone / iPad</h2>
+    <div class="step"><span class="num">1</span><span>กดปุ่ม <b>แชร์</b>
+      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="#0F8C8C" stroke-width="2">
+        <path d="M12 3v12M7 8l5-5 5 5"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg>
+      ที่แถบด้านล่างของ Safari</span></div>
+    <div class="step"><span class="num">2</span><span>เลื่อนลงแล้วเลือก <b>เพิ่มไปยังหน้าจอโฮม</b>
+      <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="#0F8C8C" stroke-width="2">
+        <rect x="4" y="4" width="16" height="16" rx="4"/><path d="M12 8v8M8 12h8"/></svg></span></div>
+    <div class="step"><span class="num">3</span><span>กด <b>เพิ่ม</b> มุมขวาบน
+      ไอคอน "งานนอกพื้นที่" จะอยู่บนหน้าจอ</span></div>
+    <p class="note" style="color:#64748b;opacity:1;margin:4px 0 0">
+      ต้องเปิดหน้านี้ใน <b>Safari</b> เท่านั้น ถ้าเปิดจากไลน์หรือ Chrome จะไม่มีเมนูนี้</p>
+  </div>
+  <div style="height:18px"></div>
+  <button class="btn sub2" onclick="startApp()">ข้ามไปใช้งานเลย</button>
+  <div class="arrow">⬇</div>
+</div></div>
+
+<!-- 3. หน้าโหลด / สำรอง -->
+<div class="screen" id="s_load"><div>
+  <img class="logo" src="icon-512.png" alt="">
+  <div id="loading"><div class="spin"></div>
+    <div style="font-size:14px;opacity:.85">กำลังเปิดระบบ…</div></div>
+  <div id="fallback" style="display:none">
+    <p class="sub">ไม่สามารถเปิดระบบในหน้านี้ได้<br>กดปุ่มด้านล่างเพื่อเปิดผ่าน Google โดยตรง</p>
+    <button class="btn main" onclick="location.href=APP_URL">เปิดระบบ</button>
+  </div>
+</div></div>
+
+<iframe id="frame" title="ระบบบันทึกการปฏิบัติงานนอกพื้นที่" allow="camera"></iframe>
+
+<script>
+var ua = navigator.userAgent;
+var isIOS = /iPhone|iPad|iPod/.test(ua) || (navigator.platform==='MacIntel' && navigator.maxTouchPoints>1);
+var isLine = /\bLine\//i.test(ua);
+var isStandalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+var deferredPrompt = null;
+
+function show(id){
+  ['s_home','s_ios','s_load'].forEach(function(x){ document.getElementById(x).classList.toggle('on', x===id); });
+}
+
+/* เปิดจากไลน์ : เด้งออกไปเบราว์เซอร์หลักของเครื่อง */
+if(isLine && location.search.indexOf('openExternalBrowser=1') < 0){
+  location.replace(location.pathname + '?openExternalBrowser=1');
+}
+
+/* Android : เก็บคำสั่งติดตั้งไว้ใช้ตอนกดปุ่ม */
+window.addEventListener('beforeinstallprompt', function(e){
+  e.preventDefault();
+  deferredPrompt = e;
+});
+window.addEventListener('appinstalled', function(){
+  deferredPrompt = null;
+  document.getElementById('b_install').textContent = '✓ ติดตั้งแล้ว เปิดจากไอคอนบนหน้าจอได้เลย';
+});
+
+document.getElementById('b_install').onclick = function(){
+  if(isIOS){ show('s_ios'); return; }
+  if(deferredPrompt){
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.finally(function(){ deferredPrompt = null; });
+    return;
+  }
+  alert('กดจุดสามจุด ⋮ มุมขวาบนของ Chrome แล้วเลือก "ติดตั้งแอป" หรือ "เพิ่มไปยังหน้าจอหลัก"');
+};
+
+/* เปิดระบบในกรอบ ถ้าไม่ขึ้นใน 8 วิ ให้ปุ่มเปิดตรง */
+function startApp(){
+  show('s_load');
+  var frame = document.getElementById('frame'), loaded = false;
+  frame.onload = function(){
+    loaded = true;
+    frame.style.display = 'block';
+    document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('on'); });
+  };
+  frame.src = APP_URL;
+  setTimeout(function(){
+    if(!loaded){
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('fallback').style.display = 'block';
+    }
+  }, 8000);
+}
+
+/* เปิดจากไอคอนที่ติดตั้งแล้ว หรือบนคอม : เข้าระบบทันที
+   เปิดจากเบราว์เซอร์มือถือ : แสดงหน้าติดตั้งก่อน */
+var isMobile = /Android|iPhone|iPad|iPod/i.test(ua) || isIOS;
+if(isStandalone || !isMobile) startApp();
+else show('s_home');
+
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('sw.js').catch(function(){});
+}
+</script>
+</body>
+</html>
